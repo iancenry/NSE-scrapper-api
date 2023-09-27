@@ -10,4 +10,4 @@ router.get('/', welcome);
 router.get('/stocks', getStocks);
 router.get('/stocks/:searchId', getStock);
 
-export { router };
+module.exports = router;
