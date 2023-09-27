@@ -18,9 +18,7 @@ const welcome = async (req, res) => {
  */
 const getStocks = async (req, res) => {
   const data = await getData();
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json(data);
+  res.status(200).json(data);
 };
 
 /**
@@ -35,9 +33,7 @@ const getStock = async (req, res) => {
       item.ticker.toLowerCase().includes(req.params.searchId.toLowerCase()) ||
       item.name.toLowerCase().includes(req.params.searchId.toLowerCase())
   );
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json(stock);
+  res.status(200).json(stock);
 };
 
 module.exports = { getStocks, getStock, welcome };
