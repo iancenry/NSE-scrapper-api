@@ -1,0 +1,16 @@
+{
+  "installCommand": "npm install",
+  "devCommand": "nodemon server.js",
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "routes/(.*)",
+      "dest": "server.js"
+    }
+  ]
+}

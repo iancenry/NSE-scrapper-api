@@ -1,3 +1,6 @@
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+
 let lastData = null;
 
 const getData = async (req, res) => {

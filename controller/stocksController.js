@@ -1,6 +1,4 @@
-import axios from 'axios';
-import * as cheerio from 'cheerio';
-import { getData } from './utils';
+import { getData } from './utils.js';
 
 /**
  * @desc  Get all stocks
@@ -9,6 +7,8 @@ import { getData } from './utils';
  */
 const getStocks = async (req, res) => {
   const data = await getData();
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
   res.json(data);
 };
 
@@ -24,6 +24,8 @@ const getStock = async (req, res) => {
       item.ticker.toLowerCase().includes(req.params.searchId.toLowerCase()) ||
       item.name.toLowerCase().includes(req.params.searchId.toLowerCase())
   );
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
   res.json(stock);
 };
 
