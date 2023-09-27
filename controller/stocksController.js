@@ -1,6 +1,17 @@
 import { getData } from './utils.js';
 
 /**
+ * @desc  Welcome notes
+ * @route GET .
+ * @access Public
+ */
+const welcome = async (req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.json({ message: 'Hey you are using the NSE scrapper api 🚝🏄‍♂️🏄‍♂️😎' });
+};
+
+/**
  * @desc  Get all stocks
  * @route GET stocks
  * @access Public
@@ -29,4 +40,4 @@ const getStock = async (req, res) => {
   res.json(stock);
 };
 
-export { getStocks, getStock };
+export { getStocks, getStock, welcome };

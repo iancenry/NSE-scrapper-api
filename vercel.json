@@ -1,4 +1,5 @@
 {
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
   "installCommand": "npm install",
   "devCommand": "nodemon server.js",
   "builds": [
