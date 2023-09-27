@@ -1,17 +1,3 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
-  "installCommand": "npm install",
-  "devCommand": "nodemon server.js",
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@now/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "routes/(.*)",
-      "dest": "server.js"
-    }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
 }
