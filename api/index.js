@@ -1,4 +1,4 @@
 //vercel setup
-import app from '../server';
+import app from '../index.js';
 
 export default app;
