@@ -1,4 +1,4 @@
-import { getData } from './utils.js';
+const { getData } = require('./utils.js');
 
 /**
  * @desc  Welcome notes
@@ -40,4 +40,4 @@ const getStock = async (req, res) => {
   res.json(stock);
 };
 
-export { getStocks, getStock, welcome };
+module.exports = { getStocks, getStock, welcome };

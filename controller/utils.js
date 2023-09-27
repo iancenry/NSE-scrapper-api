@@ -1,5 +1,5 @@
-import axios from 'axios';
-import * as cheerio from 'cheerio';
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 let lastData = null;
 
@@ -32,4 +32,4 @@ const getData = async (req, res) => {
   }
 };
 
-export { getData };
+module.exports = { getData };

@@ -1,10 +1,10 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
-import {
+const {
   getStocks,
   getStock,
   welcome,
-} from '../controller/stocksController.js';
+} = require('../controller/stocksController.js');
 
 router.get('/', welcome);
 router.get('/stocks', getStocks);
