@@ -44,7 +44,7 @@ const sendErrorProd = (err, res) => {
   }
 };
 
-const globalErrorHandler = (err, req, res, next) => {
+const globalErrorHandler = (err, req, res, _next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
@@ -66,7 +66,7 @@ const globalErrorHandler = (err, req, res, next) => {
 };
 
 // Handle unhandled routes
-const notFound = (req, res, next) => {
+const notFound = (req, _res, next) => {
   const message = `Route ${req.originalUrl} not found`;
   const error = new AppError(message, 404);
   next(error);

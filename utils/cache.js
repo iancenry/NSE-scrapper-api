@@ -10,15 +10,15 @@ class CacheManager {
       useClones: false
     });
 
-    this.cache.on('set', (key, value) => {
+    this.cache.on('set', (key, _value) => {
       logger.info(`Cache set: ${key}`);
     });
 
-    this.cache.on('del', (key, value) => {
+    this.cache.on('del', (key, _value) => {
       logger.info(`Cache deleted: ${key}`);
     });
 
-    this.cache.on('expired', (key, value) => {
+    this.cache.on('expired', (key, _value) => {
       logger.info(`Cache expired: ${key}`);
     });
   }

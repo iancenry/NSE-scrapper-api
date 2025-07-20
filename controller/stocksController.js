@@ -295,7 +295,7 @@ const getStock = async (req, res, next) => {
  *       503:
  *         description: Service unavailable
  */
-const healthCheck = async (req, res, next) => {
+const healthCheck = async (req, res, _next) => {
   try {
     const cacheStats = cache.getStats();
     const memUsage = process.memoryUsage();
