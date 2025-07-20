@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "./index.js",
-      "use": "@now/node"
+      "use": "@vercel/node",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
     }
   ],
   "routes": [
@@ -11,5 +14,13 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
-  ]
+  ],
+  "functions": {
+    "./index.js": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
