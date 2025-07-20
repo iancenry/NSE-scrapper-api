@@ -6,7 +6,11 @@ const {
   welcome,
   healthCheck
 } = require('../controller/stocksController.js');
-const { validate, validateQuery, schemas } = require('../middleware/validation');
+const {
+  validate,
+  validateQuery,
+  schemas
+} = require('../middleware/validation');
 const rateLimits = require('../middleware/rateLimiter');
 
 // Apply rate limiting to all routes
@@ -17,12 +21,10 @@ router.get('/', welcome);
 
 router.get('/health', healthCheck);
 
-router.get('/stocks', 
-  validateQuery(schemas.queryParams),
-  getStocks
-);
+router.get('/stocks', validateQuery(schemas.queryParams), getStocks);
 
-router.get('/stocks/:searchId', 
+router.get(
+  '/stocks/:searchId',
   validate(schemas.searchStock),
   validateQuery(schemas.queryParams),
   getStock

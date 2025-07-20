@@ -16,46 +16,56 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Security middleware
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ['\'self\''],
-      styleSrc: ['\'self\'', '\'unsafe-inline\'', 'https://cdnjs.cloudflare.com'],
-      scriptSrc: ['\'self\'', 'https://cdnjs.cloudflare.com'],
-      imgSrc: ['\'self\'', 'data:', 'https:'],
-    },
-  },
-}));
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com'],
+        scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com'],
+        imgSrc: ["'self'", 'data:', 'https:']
+      }
+    }
+  })
+);
 
 // CORS configuration
-app.use(cors({
-  origin: config.server.env === 'production' ? [
-    'https://your-frontend-domain.com',
-    'https://api-docs-domain.com'
-  ] : true,
-  credentials: true,
-  methods: ['GET', 'HEAD', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+app.use(
+  cors({
+    origin:
+      config.server.env === 'production'
+        ? ['https://your-frontend-domain.com', 'https://api-docs-domain.com']
+        : true,
+    credentials: true,
+    methods: ['GET', 'HEAD', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  })
+);
 
 // Logging middleware
 const morganFormat = config.server.env === 'production' ? 'combined' : 'dev';
-app.use(morgan(morganFormat, {
-  stream: {
-    write: (message) => logger.info(message.trim())
-  }
-}));
+app.use(
+  morgan(morganFormat, {
+    stream: {
+      write: (message) => logger.info(message.trim())
+    }
+  })
+);
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 
 // API Documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
-  explorer: true,
-  customCss: '.swagger-ui .topbar { display: none }',
-  customSiteTitle: 'NSE Scraper API Documentation'
-}));
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(specs, {
+    explorer: true,
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'NSE Scraper API Documentation'
+  })
+);
 
 // Routes
 app.use('/', require('./routes/stocksRoute'));
@@ -93,7 +103,9 @@ process.on('SIGINT', () => {
 const PORT = config.server.port;
 const server = app.listen(PORT, () => {
   logger.info(`🚀 Server running in ${config.server.env} mode on port ${PORT}`);
-  logger.info(`📚 API Documentation available at http://localhost:${PORT}/api-docs`);
+  logger.info(
+    `📚 API Documentation available at http://localhost:${PORT}/api-docs`
+  );
   logger.info(`❤️ Health check available at http://localhost:${PORT}/health`);
 });
 

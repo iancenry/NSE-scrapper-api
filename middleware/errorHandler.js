@@ -34,7 +34,7 @@ const sendErrorProd = (err, res) => {
   } else {
     // Programming or other unknown error: don't leak error details
     logger.error('ERROR:', err);
-    
+
     res.status(500).json({
       success: false,
       error: 'Internal Server Error',

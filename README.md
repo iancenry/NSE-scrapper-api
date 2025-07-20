@@ -18,29 +18,34 @@ A fast, reliable, and production-ready API for scraping Nairobi Securities Excha
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js >= 14.0.0
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 git clone https://github.com/your-username/nse-scraper-api.git
 cd nse-scraper-api
 ```
 
 2. **Install dependencies**
+
 ```bash
 npm install
 ```
 
 3. **Set up environment variables**
+
 ```bash
 cp .env.example .env
 # Edit .env with your configurations
 ```
 
 4. **Start the development server**
+
 ```bash
 npm run dev
 ```
@@ -53,28 +58,34 @@ npm run dev
 ## 📖 API Documentation
 
 ### Base URL
+
 - Development: `http://localhost:5000`
 - Production: `https://your-api-domain.com`
 
 ### Endpoints
 
 #### 🏠 Welcome
+
 ```http
 GET /
 ```
+
 Returns API information and available endpoints.
 
 #### 📊 Get All Stocks
+
 ```http
 GET /stocks?limit=10&sort=price&order=desc
 ```
 
 **Query Parameters:**
+
 - `limit` (optional): Number of results (1-1000)
 - `sort` (optional): Sort field (`ticker`, `name`, `price`, `change`, `volume`)
 - `order` (optional): Sort order (`asc`, `desc`)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -97,19 +108,23 @@ GET /stocks?limit=10&sort=price&order=desc
 ```
 
 #### 🔍 Search Stocks
+
 ```http
 GET /stocks/{searchId}?limit=5&sort=name&order=asc
 ```
 
 **Path Parameters:**
+
 - `searchId`: Search term (ticker symbol or company name)
 
 **Query Parameters:**
+
 - `limit` (optional): Number of results (1-1000)
 - `sort` (optional): Sort field (`ticker`, `name`, `price`, `change`, `volume`)
 - `order` (optional): Sort order (`asc`, `desc`)
 
 #### 🏥 Health Check
+
 ```http
 GET /health
 ```
@@ -175,11 +190,13 @@ npm run lint:fix
 ### Vercel (Recommended)
 
 1. **Install Vercel CLI**
+
 ```bash
 npm i -g vercel
 ```
 
 2. **Deploy**
+
 ```bash
 vercel --prod
 ```
@@ -187,6 +204,7 @@ vercel --prod
 ### Other Platforms
 
 The API is containerizable and can be deployed to:
+
 - Heroku
 - AWS Lambda
 - Google Cloud Functions

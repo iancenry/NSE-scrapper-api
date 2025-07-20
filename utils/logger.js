@@ -20,22 +20,24 @@ const logger = winston.createLogger({
   ),
   defaultMeta: { service: 'nse-scraper-api' },
   transports: [
-    new winston.transports.File({ 
+    new winston.transports.File({
       filename: config.logging.filePath,
       maxsize: 5242880, // 5MB
-      maxFiles: 5,
-    }),
-  ],
+      maxFiles: 5
+    })
+  ]
 });
 
 // If we're not in production, log to console as well
 if (config.server.env !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.simple()
-    )
-  }));
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      )
+    })
+  );
 }
 
 module.exports = logger;

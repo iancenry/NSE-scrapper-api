@@ -19,7 +19,9 @@ const createRateLimit = (options = {}) => {
         success: false,
         error: 'Too Many Requests',
         message: 'Too many requests from this IP, please try again later.',
-        retryAfter: Math.ceil((options.windowMs || config.api.rateLimitWindowMs) / 1000 / 60),
+        retryAfter: Math.ceil(
+          (options.windowMs || config.api.rateLimitWindowMs) / 1000 / 60
+        ),
         timestamp: new Date().toISOString()
       });
     }

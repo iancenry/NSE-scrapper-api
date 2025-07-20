@@ -35,13 +35,17 @@ const cache = require('../utils/cache');
  */
 const welcome = async (req, res, next) => {
   try {
-    logger.info('Welcome endpoint accessed', { ip: req.ip, userAgent: req.get('User-Agent') });
-    
+    logger.info('Welcome endpoint accessed', {
+      ip: req.ip,
+      userAgent: req.get('User-Agent')
+    });
+
     res.status(200).json({
       success: true,
       message: 'Welcome to NSE Scraper API 🚀',
       version: '2.0.0',
-      description: 'A fast and reliable API for scraping Nairobi Securities Exchange (NSE) stock prices',
+      description:
+        'A fast and reliable API for scraping Nairobi Securities Exchange (NSE) stock prices',
       endpoints: {
         stocks: '/stocks - Get all stocks',
         search: '/stocks/:searchId - Search for specific stocks',
@@ -106,10 +110,10 @@ const welcome = async (req, res, next) => {
 const getStocks = async (req, res, next) => {
   try {
     const { limit, sort, order } = req.query;
-    
-    logger.info('Get all stocks endpoint accessed', { 
+
+    logger.info('Get all stocks endpoint accessed', {
       query: req.query,
-      ip: req.ip 
+      ip: req.ip
     });
 
     const result = await stockDataService.fetchStockData();
@@ -212,7 +216,7 @@ const getStock = async (req, res, next) => {
   try {
     const { searchId } = req.params;
     const { limit, sort, order } = req.query;
-    
+
     logger.info('Search stocks endpoint accessed', {
       searchId,
       query: req.query,
@@ -252,7 +256,9 @@ const getStock = async (req, res, next) => {
       timestamp: new Date().toISOString()
     };
 
-    logger.info(`Successfully found ${stocks.length} stocks matching '${searchId}'`);
+    logger.info(
+      `Successfully found ${stocks.length} stocks matching '${searchId}'`
+    );
 
     res.status(200).json(response);
   } catch (error) {
@@ -299,7 +305,7 @@ const healthCheck = async (req, res, _next) => {
   try {
     const cacheStats = cache.getStats();
     const memUsage = process.memoryUsage();
-    
+
     const healthData = {
       success: true,
       status: 'healthy',
@@ -331,9 +337,9 @@ const healthCheck = async (req, res, _next) => {
   }
 };
 
-module.exports = { 
-  getStocks, 
-  getStock, 
+module.exports = {
+  getStocks,
+  getStock,
   welcome,
-  healthCheck 
+  healthCheck
 };

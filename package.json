@@ -11,7 +11,16 @@
     "lint:fix": "eslint . --fix",
     "vercel-build": "echo 'Build completed successfully'"
   },
-  "keywords": ["nse", "stocks", "scraper", "api", "nairobi", "securities", "exchange", "kenya"],
+  "keywords": [
+    "nse",
+    "stocks",
+    "scraper",
+    "api",
+    "nairobi",
+    "securities",
+    "exchange",
+    "kenya"
+  ],
   "author": "NSE Scraper API",
   "license": "MIT",
   "dependencies": {

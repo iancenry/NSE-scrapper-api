@@ -4,9 +4,7 @@ const app = require('../index');
 describe('NSE Scraper API', () => {
   describe('GET /', () => {
     it('should return welcome message', async () => {
-      const res = await request(app)
-        .get('/')
-        .expect(200);
+      const res = await request(app).get('/').expect(200);
 
       expect(res.body.success).toBe(true);
       expect(res.body.message).toContain('Welcome to NSE Scraper API');
@@ -16,9 +14,7 @@ describe('NSE Scraper API', () => {
 
   describe('GET /health', () => {
     it('should return health status', async () => {
-      const res = await request(app)
-        .get('/health')
-        .expect(200);
+      const res = await request(app).get('/health').expect(200);
 
       expect(res.body.success).toBe(true);
       expect(res.body.status).toBe('healthy');
@@ -30,9 +26,7 @@ describe('NSE Scraper API', () => {
 
   describe('GET /stocks', () => {
     it('should return stocks data', async () => {
-      const res = await request(app)
-        .get('/stocks')
-        .expect(200);
+      const res = await request(app).get('/stocks').expect(200);
 
       expect(res.body.success).toBe(true);
       expect(res.body.data).toBeInstanceOf(Array);
@@ -54,9 +48,7 @@ describe('NSE Scraper API', () => {
 
   describe('GET /stocks/:searchId', () => {
     it('should return filtered stocks', async () => {
-      const res = await request(app)
-        .get('/stocks/equity')
-        .expect(200);
+      const res = await request(app).get('/stocks/equity').expect(200);
 
       expect(res.body.success).toBe(true);
       expect(res.body.data).toBeInstanceOf(Array);
@@ -64,25 +56,19 @@ describe('NSE Scraper API', () => {
     }, 30000);
 
     it('should return 400 for invalid search parameter', async () => {
-      await request(app)
-        .get('/stocks/')
-        .expect(404); // Not found because of route pattern
+      await request(app).get('/stocks/').expect(404); // Not found because of route pattern
     });
   });
 
   describe('GET /api-docs', () => {
     it('should serve API documentation', async () => {
-      await request(app)
-        .get('/api-docs/')
-        .expect(200);
+      await request(app).get('/api-docs/').expect(200);
     });
   });
 
   describe('GET /invalid-route', () => {
     it('should return 404 for invalid routes', async () => {
-      await request(app)
-        .get('/invalid-route')
-        .expect(404);
+      await request(app).get('/invalid-route').expect(404);
     });
   });
 });

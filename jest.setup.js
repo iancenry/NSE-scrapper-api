@@ -4,7 +4,7 @@ jest.setTimeout(30000);
 // Mock console methods to avoid noise in tests
 const originalConsole = console;
 global.console = {
-  ...console,
+  ...console
   // Uncomment to ignore console logs during tests
   // log: jest.fn(),
   // warn: jest.fn(),

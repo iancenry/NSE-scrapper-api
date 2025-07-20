@@ -8,7 +8,8 @@ const schemas = {
       .pattern(/^[a-zA-Z0-9\s-_.]+$/)
       .required()
       .messages({
-        'string.pattern.base': 'Search ID can only contain letters, numbers, spaces, hyphens, underscores, and dots',
+        'string.pattern.base':
+          'Search ID can only contain letters, numbers, spaces, hyphens, underscores, and dots',
         'string.min': 'Search ID must be at least 1 character long',
         'string.max': 'Search ID cannot be more than 50 characters long'
       })
@@ -23,30 +24,23 @@ const schemas = {
   }),
 
   queryParams: Joi.object({
-    limit: Joi.number()
-      .integer()
-      .min(1)
-      .max(1000)
-      .optional()
-      .messages({
-        'number.integer': 'Limit must be an integer',
-        'number.min': 'Limit must be at least 1',
-        'number.max': 'Limit cannot be more than 1000'
-      }),
-    
+    limit: Joi.number().integer().min(1).max(1000).optional().messages({
+      'number.integer': 'Limit must be an integer',
+      'number.min': 'Limit must be at least 1',
+      'number.max': 'Limit cannot be more than 1000'
+    }),
+
     sort: Joi.string()
       .valid('ticker', 'name', 'price', 'change', 'volume')
       .optional()
       .messages({
-        'any.only': 'Sort field must be one of: ticker, name, price, change, volume'
+        'any.only':
+          'Sort field must be one of: ticker, name, price, change, volume'
       }),
-    
-    order: Joi.string()
-      .valid('asc', 'desc')
-      .optional()
-      .messages({
-        'any.only': 'Order must be either asc or desc'
-      })
+
+    order: Joi.string().valid('asc', 'desc').optional().messages({
+      'any.only': 'Order must be either asc or desc'
+    })
   })
 };
 

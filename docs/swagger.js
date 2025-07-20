@@ -20,8 +20,14 @@ const options = {
     },
     servers: [
       {
-        url: config.server.env === 'production' ? 'https://your-api-domain.com' : `http://localhost:${config.server.port}`,
-        description: config.server.env === 'production' ? 'Production server' : 'Development server'
+        url:
+          config.server.env === 'production'
+            ? 'https://your-api-domain.com'
+            : `http://localhost:${config.server.port}`,
+        description:
+          config.server.env === 'production'
+            ? 'Production server'
+            : 'Development server'
       }
     ],
     components: {
@@ -126,7 +132,7 @@ const options = {
       }
     }
   },
-  apis: ['./routes/*.js', './controller/*.js'], // paths to files containing OpenAPI definitions
+  apis: ['./routes/*.js', './controller/*.js'] // paths to files containing OpenAPI definitions
 };
 
 const specs = swaggerJsdoc(options);
