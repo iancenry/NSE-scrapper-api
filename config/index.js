@@ -16,7 +16,10 @@ const config = {
   },
   external: {
     nseDataSourceUrl:
-      process.env.NSE_DATA_SOURCE_URL || 'https://afx.kwayisi.org/nse/'
+      process.env.NSE_DATA_SOURCE_URL || 'https://afx.kwayisi.org/nse/',
+    requestTimeoutMs: parseInt(process.env.REQUEST_TIMEOUT_MS) || 30000,
+    maxRetries: parseInt(process.env.MAX_RETRIES) || 3,
+    retryDelayMs: parseInt(process.env.RETRY_DELAY_MS) || 2000,
   },
   logging: {
     level: process.env.LOG_LEVEL || 'info',

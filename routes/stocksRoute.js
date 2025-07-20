@@ -4,7 +4,8 @@ const {
   getStocks,
   getStock,
   welcome,
-  healthCheck
+  healthCheck,
+  testConnection
 } = require('../controller/stocksController.js');
 const {
   validate,
@@ -21,7 +22,13 @@ router.get('/', welcome);
 
 router.get('/health', healthCheck);
 
-router.get('/stocks', validateQuery(schemas.queryParams), getStocks);
+router.get('/test-connection', testConnection);
+
+router.get(
+  '/stocks',
+  validateQuery(schemas.queryParams),
+  getStocks
+);
 
 router.get(
   '/stocks/:searchId',

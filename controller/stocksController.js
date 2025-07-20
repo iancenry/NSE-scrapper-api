@@ -337,9 +337,51 @@ const healthCheck = async (req, res, _next) => {
   }
 };
 
+/**
+ * @swagger
+ * /test-connection:
+ *   get:
+ *     summary: Test external API connection
+ *     description: Test the connection to the external NSE data source
+ *     tags: [General]
+ *     responses:
+ *       200:
+ *         description: Connection test successful
+ *       502:
+ *         description: Connection test failed
+ */
+const testConnection = async (req, res, _next) => {
+  try {
+    logger.info('Testing external API connection');
+
+    const startTime = Date.now();
+    const result = await stockDataService.fetchStockData();
+    const endTime = Date.now();
+
+    res.status(200).json({
+      success: true,
+      message: 'Connection test successful',
+      responseTime: `${endTime - startTime}ms`,
+      dataCount: result.data.length,
+      cached: result.cached,
+      stale: result.stale || false,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    logger.error('Connection test failed:', error);
+    res.status(502).json({
+      success: false,
+      error: 'Connection test failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+};
+
 module.exports = {
   getStocks,
   getStock,
   welcome,
-  healthCheck
+  healthCheck,
+  testConnection
 };
