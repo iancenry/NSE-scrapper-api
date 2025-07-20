@@ -99,24 +99,28 @@ process.on('SIGINT', () => {
   process.exit(0);
 });
 
-// Start server
-const PORT = config.server.port;
-const server = app.listen(PORT, () => {
-  logger.info(`🚀 Server running in ${config.server.env} mode on port ${PORT}`);
-  logger.info(
-    `📚 API Documentation available at http://localhost:${PORT}/api-docs`
-  );
-  logger.info(`❤️ Health check available at http://localhost:${PORT}/health`);
-});
+// Start server only if not in serverless environment (Vercel)
+if (!process.env.VERCEL) {
+  const PORT = config.server.port;
+  const server = app.listen(PORT, () => {
+    logger.info(
+      `🚀 Server running in ${config.server.env} mode on port ${PORT}`
+    );
+    logger.info(
+      `📚 API Documentation available at http://localhost:${PORT}/api-docs`
+    );
+    logger.info(`❤️ Health check available at http://localhost:${PORT}/health`);
+  });
 
-// Handle server errors
-server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    logger.error(`❌ Port ${PORT} is already in use`);
-  } else {
-    logger.error('❌ Server error:', err);
-  }
-  process.exit(1);
-});
+  // Handle server errors
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      logger.error(`❌ Port ${PORT} is already in use`);
+    } else {
+      logger.error('❌ Server error:', err);
+    }
+    process.exit(1);
+  });
+}
 
 module.exports = app;
