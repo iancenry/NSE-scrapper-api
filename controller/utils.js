@@ -12,10 +12,11 @@ class StockDataService {
       headers: {
         'User-Agent':
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
         'Accept-Encoding': 'gzip, deflate',
-        'Connection': 'keep-alive',
+        Connection: 'keep-alive',
         'Upgrade-Insecure-Requests': '1'
       }
     });
@@ -25,19 +26,23 @@ class StockDataService {
 
   async fetchWithRetry(url, retryCount = 0) {
     try {
-      logger.info(`Fetching data from ${url} (attempt ${retryCount + 1}/${this.maxRetries + 1})`);
+      logger.info(
+        `Fetching data from ${url} (attempt ${retryCount + 1}/${
+          this.maxRetries + 1
+        })`
+      );
       const response = await this.axiosInstance.get(url);
       return response;
     } catch (error) {
       logger.warn(`Fetch attempt ${retryCount + 1} failed:`, error.message);
-      
+
       if (retryCount < this.maxRetries) {
         const delay = this.retryDelay * (retryCount + 1); // Exponential backoff
         logger.info(`Retrying in ${delay}ms...`);
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise((resolve) => setTimeout(resolve, delay));
         return this.fetchWithRetry(url, retryCount + 1);
       }
-      
+
       throw error;
     }
   }
@@ -73,7 +78,7 @@ class StockDataService {
 
       if (!stocks || stocks.length === 0) {
         logger.warn('No stock data could be parsed, checking for stale cache');
-        
+
         // Try to get stale cached data as fallback
         const staleCache = cache.get(cacheKey + '_stale');
         if (staleCache) {
@@ -85,7 +90,7 @@ class StockDataService {
             lastUpdated: staleCache.lastUpdated
           };
         }
-        
+
         throw new AppError(
           'No stock data could be parsed from the source and no fallback data available',
           502
@@ -99,7 +104,7 @@ class StockDataService {
 
       // Cache the data with normal TTL
       cache.set(cacheKey, stockData);
-      
+
       // Also cache as stale data with longer TTL (24 hours) for fallback
       cache.set(cacheKey + '_stale', stockData, 86400);
 
@@ -112,7 +117,7 @@ class StockDataService {
       };
     } catch (error) {
       logger.error('Error fetching stock data:', error);
-      
+
       // Try to serve stale cached data as last resort
       const staleCache = cache.get(cacheKey + '_stale');
       if (staleCache) {
@@ -139,11 +144,17 @@ class StockDataService {
       }
 
       if (error.code === 'ENOTFOUND' || error.code === 'ECONNREFUSED') {
-        throw new AppError('Unable to connect to external data source. Please try again later.', 502);
+        throw new AppError(
+          'Unable to connect to external data source. Please try again later.',
+          502
+        );
       }
 
       if (error.code === 'ETIMEDOUT' || error.message.includes('timeout')) {
-        throw new AppError('Connection timeout to external service. Please try again later.', 504);
+        throw new AppError(
+          'Connection timeout to external service. Please try again later.',
+          504
+        );
       }
 
       throw new AppError(

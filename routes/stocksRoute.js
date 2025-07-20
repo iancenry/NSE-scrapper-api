@@ -24,11 +24,7 @@ router.get('/health', healthCheck);
 
 router.get('/test-connection', testConnection);
 
-router.get(
-  '/stocks',
-  validateQuery(schemas.queryParams),
-  getStocks
-);
+router.get('/stocks', validateQuery(schemas.queryParams), getStocks);
 
 router.get(
   '/stocks/:searchId',
